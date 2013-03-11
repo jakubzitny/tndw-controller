@@ -109,6 +109,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 	'/Volumes/Data/Documents/BP/django/troller-site/troller_main/templates/'
 	'/Volumes/Data/Documents/BP/django/troller-site/screenshots/templates/'
+	'/Volumes/Data/Documents/BP/django/troller-site/backing/templates/'
 )
 
 INSTALLED_APPS = (
@@ -126,6 +127,8 @@ INSTALLED_APPS = (
 	'troller_main',
 	# navigation links
 	'screenshots',
+	'backing',
+	# 'celery',
 )
 
 # A sample logging configuration. The only tangible logging
