@@ -1,0 +1,81 @@
+from django.db import models
+
+class Distribution(models.Model):
+
+	id = models.AutoField(primary_key=True)
+
+	STATE_ACTIVE = (
+        (0, 'Inactive'),
+        (1, 'Active'),
+    )
+
+	name = models.CharField()
+	os_type = models.CharField()
+	based_ons = models.ManyToManyField(Distribution, through='DistrosBasedOns')
+	origin = models.CharField()
+	architectures = models.ManyToManyField(Architecture, through='DistrosArchitectures')
+	desktops = models.ManyToManyField(Desktop, through='DistrosDesktops')
+	categories = models.ManyToManyField(Category, through='DistrosCategories')
+	status = models.CharField(choices=STATE_ACTIVE)
+	popularity = models.IntegerField()
+
+	homepage = models.ManyToManyField(Link, through='HomepageLinks')
+	mailing_lists = models.ManyToManyField(Link, through='MailingListsLinks')
+	user_forums = models.ManyToManyField(Link, through='UserForumsLinks')
+	documentations = models.ManyToManyField(Link, through='DocumentationsLinks')
+	screenshots = models.ManyToManyField(Link, through='ScreenshotsLinks')
+	download_mirrors = models.ManyToManyField(Link, through='DownloadMirrorsLinks')
+	bug_trackers = models.ManyToManyField(Link, through='BugTrackersLinks')
+	related_websites = models.ManyToManyField(Link, through='RelatedWebsitesLinks')
+	reviews = models.ManyToManyField(Link, through='ReviewsLinks')
+
+	updates = models.OneToMany(Update)
+	articles models.ManyToMany(Article)
+
+class Architecture(models.Model):
+	id = models.AutoField(primary_key=True)
+	name = models.CharField()
+
+class Desktop(models.Model):
+	id = models.AutoField(primary_key=True)
+	name = models.CharField()
+
+class Category(models.Model):
+	id = models.AutoField(primary_key=True)
+	name = models.CharField()
+
+class Link(models.Model):
+	id = models.AutoField(primary_key=True)
+	name = models.CharField()
+	href = models.CharField()
+
+class Update(models.Model):
+	id = models.AutoField(primary_key=True)
+	title = models.CharField()
+	text = models.CharField()
+	
+class Article(models.Model):
+	id = models.AutoField(primary_key=True)
+	title = models.CharField()
+	text = models.CharField()
+
+class DistroVersion(models.Model):
+	id = models.AutoField(primary_key=True)
+	number = models.IntegerField()	
+	name = models.CharField()
+	packages = models.ManyToManyField(Package)
+	features = models.ManyToManyField(Feature)
+
+class Package(models.Model):
+	id = models.AutoField(primary_key=True)
+	name = models.CharField()
+	version = models.CharField()
+
+class Feature(models.Model):
+	id = models.AutoField(primary_key=True)
+	name = models.CharField()
+	type = models.OneToManyField(FeatureType)
+
+class FeatureType(models.Model):
+	id = models.AutoField(primary_key=True)
+	name = models.CharField()
