@@ -5,6 +5,7 @@ from multiprocessing import Process, Queue, Lock
 import redis, subprocess, time
 
 class Command(BaseCommand):
+	""" This is command for redis dispatchin """
     args = ''
     help = ''
     processes = []
