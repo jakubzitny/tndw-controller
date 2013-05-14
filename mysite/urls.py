@@ -9,7 +9,8 @@ urlpatterns = patterns('',
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^mysite/', include('mysite.foo.urls')),
 	url(r'^', include('troller_main.urls')),
-	url(r'^screenshots/', include('screenshots.urls')),
+	#url(r'^screenshots/', include('screenshots.urls')),
+	url(r'^screenshots/', include('screenshots_fetch.urls')),
 	url(r'^backing/', include('backing.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
