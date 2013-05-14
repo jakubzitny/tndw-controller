@@ -8,7 +8,7 @@ import signal, os, sys, traceback
 if __name__ == "__main__":
 	parser=SDParser()
 	try:
-		print(parser.parse())
+		print(parser.parses())
 	except KeyboardInterrupt:
 		print("Shutdown requested...exiting")
 	except Exception:

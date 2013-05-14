@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 
-from logic.version import Version
+#from logic.version import Version
+from version import Version
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
@@ -49,10 +50,10 @@ class SDParser():
 		distro_versions = []
 
 		print(distro + ": ")
-		cwd = os.getcwd()
-		if not os.path.exists(distro):
-			os.mkdir(distro)
-		os.chdir(distro)
+		#cwd = os.getcwd()
+		#if not os.path.exists(distro):
+		#	os.mkdir(distro)
+		#os.chdir(distro)
 
 		for distro_version in distro_versions_raw:
 			version_raw = distro_version.attrib["href"]
@@ -60,7 +61,7 @@ class SDParser():
 				version = version_raw[15:]
 				distro_versions.append(version)
 		self.handleVersions(distro_versions, distro)
-		os.chdir('..')
+		#os.chdir('..')
 
 	def handleVersions(self, versions, distro):
 		self.handleVersionsSequential(versions, distro)
@@ -69,6 +70,7 @@ class SDParser():
 	def handleVersionsSequential(self, versions, distro):
 		for version in versions:
 			self.handleVersion([version, distro])
+			break;
 
 	def handleVersionsParallel(self, versions, distro):
 		processes = []
@@ -116,13 +118,15 @@ class SDParser():
 
 		if not os.path.exists(version_str):
 			os.mkdir(version_str)
+		else:
+			return
 		os.chdir(version_str)
 		
 		for shot in screenshots:
 			if shot.split('/')[-1] not in os.listdir('.'):
 				try:
 					urllib.request.urlretrieve(shot, shot.split('/')[-1])
-				except urllib.URLError:
+				except Exception:
 					pass
 
 		os.chdir('..')
